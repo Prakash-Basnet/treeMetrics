@@ -1,0 +1,32 @@
+# Load the ITSMe package
+library(ITSMe)
+
+# Set the URL for the tree point cloud data
+data_url <- "https://raw.githubusercontent.com/Prakash-Basnet/treeMetrics/main/k19_tree.txt"
+
+# Read the tree point cloud data
+tree <- read_tree_pc(data_url)
+
+# Examine the first few rows of the data
+print(head(tree))
+
+# Calculate Diameter at Breast Height (DBH)
+tree_dbh <- dbh_pc(tree)
+
+# Print the calculated DBH
+print(paste("Calculated DBH:", tree_dbh))
+
+# Set the path for input/output 
+PCs_path <- getwd() #Downloaded point cloud data is saved in working directory
+
+# Plot the DBH fit
+plot_dbh_fit_pcs(
+  PCs_path,
+  extension = ".txt",
+  thresholdR2 = 0.001,
+  slice_thickness = 0.06,
+  OUT_path = "./"
+)
+
+# Print message about where the plot is saved
+print(paste("The DBH fit plot is saved in:", getwd()))
